@@ -1,4 +1,6 @@
 from flask import Flask,redirect,url_for,render_template,request
+import requests
+import json
 
 app=Flask(__name__)
 @app.route('/',methods=['GET','POST'])
@@ -17,6 +19,10 @@ def home():
                 
         render_template("index.html")            
     return render_template('index.html')
+
+@app.route('/',methods=['GET','POST'])
+def update():
+     if request.method=='POST':pass
 
 if __name__ == '__main__':
     #DEBUG is SET to TRUE. CHANGE FOR PROD
