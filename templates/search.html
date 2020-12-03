@@ -54,12 +54,14 @@
 
                 <div class="form-control">
                     <label for="alist">Search Options</label>
-                    <select name="year" class="select">
-                        <option value="" >Select Year</option>
+                    <select name="year" class="select" onchange='CheckOption(this.value);'>
+                        <option value = "">Select Option</option>
                         <option value="sid" >Student ID (SID)</option>
                         <option value="name" > Name</option>
                         <option value="roll" >Roll Number</option>
                       </select>
+                    <input type="text" name="options" id="options" placeholder=" hello" style='display:none;' />
+
                 </div>
 
                 <div class="form-control">
@@ -105,6 +107,8 @@
     </footer>
 
     <script src="../static/javascript/index.js"></script>
+    <script src="../static/javascript/search.js"></script>
+
 </body>
 
 </html>
