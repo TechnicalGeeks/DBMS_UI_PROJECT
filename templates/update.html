@@ -27,29 +27,10 @@
 
     </header>
     <main>
-        <!-- <form method="POST">
-            <div class="Year_SELECT">
-                <p>Year</p>
-                <select name="comp_select" class="select">
-                {% for o in data %}
-                <option value="{{ o.name }}" >{{ o.name }}</option>
-                {% endfor %}
-              </select>
-
-                <p>Division</p>
-                <select name="comp_select_div" class="select">
-                    {% for o in div %}
-                    <option value="{{ o.name }}" width="50px">{{ o.name }}</option>
-                    {% endfor %}
-            </select>
-
-            </div>
-            <button name="Camera" id="Camera" onclick="alert('Press q to Quit')"> Camera <Button></Button></button>
-        </form> -->
 
 
         <div class="container">
-            <form action="" id="form" name='form' class="form" onsubmit="return validateForm()" method="POST">
+            <form action="" id="form" name='form' class="form" method="POST">
                 <h2>Mark Attendance</h2>
                 <div class="form-control">
                     <label for="year">Year</label>
@@ -69,28 +50,11 @@
                         <option value="C" >C</option>
                       </select>
                 </div>
-                <div class="form-control">
-                    <label for="subject">Year</label>
-                    <select name="subject" class="select">
-                        {% for o in data %}
-                        <option value="{{ o.name }}" >{{ o.name }}</option>
-                        {% endfor %}
-                      </select>
-                </div>
-                
+
                 <button type="submit">Create Sheet</button>
-                <button type="submit">Update Attendance</button>               
+                <button type="submit">Update Attendance</button>
             </form>
         </div>
-        <!-- <div class="GUIDLINES">
-            <h1>GUIDLINES </h1>
-            <p>1. All Fields are mandatory</p>
-            <p>2. On clicking submit button new Python window will open. </p>
-            <p>3. Try to capture good quality images</p>
-            <p>4. Press 'q' On keyboard to quit capturing images</p>
-            <p>5. After 30-40 Sec you can close capturing or it will close automatically</p>
-
-        </div> -->
 
 
     </main>

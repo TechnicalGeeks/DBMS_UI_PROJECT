@@ -6,11 +6,9 @@
     <meta name="keywords" content="HTML, CSS, JavaScript">
     <meta name="author" content="Technical Geeks">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proxy | CreateDataset</title>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <title>Proxy | Add Students</title>
     <!--Bootstrap File Link-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <!--CSS File Link-->
     <link rel="stylesheet" href="../static/css/addstudent.css">
     <link rel="stylesheet" href="../static/css/lecture.css">
@@ -22,37 +20,11 @@
 </head>
 
 <body>
-    <header>
-        <a href="template.html" class="Institution_logo">
-            <img src="../static/images/logo.jpg" alt="PCCoE" class="logo">
-        </a>
-        <h1>PIMPRI CHINCHWAD COLLEGE OF ENGINEERING</h1>
 
-    </header>
     <main>
-        <!-- <form method="POST">
-            <div class="Year_SELECT">
-                <p>Year</p>
-                <select name="comp_select" class="select">
-                {% for o in data %}
-                <option value="{{ o.name }}" >{{ o.name }}</option>
-                {% endfor %}
-              </select>
-
-                <p>Division</p>
-                <select name="comp_select_div" class="select">
-                    {% for o in div %}
-                    <option value="{{ o.name }}" width="50px">{{ o.name }}</option>
-                    {% endfor %}
-            </select>
-
-            </div>
-            <button name="Camera" id="Camera" onclick="alert('Press q to Quit')"> Camera <Button></Button></button>
-        </form> -->
-
 
         <div class="container">
-            <form action="" id="form" name='form' class="form" onsubmit="return validateForm()" method="POST">
+            <form id="form" class="form">
                 <h2>Add Students</h2>
                 <div class="form-control">
                     <label for="name">Name : </label>
@@ -74,22 +46,13 @@
                     <input type="text" id="roll" name="roll" value="1" placeholder="Enter Name">
                 </div>
                 <br><br>
-                <button type="button">Add</button>
+                <button onclick="test()">Add</button>
                 <!-- <button type="submit">Add</button> -->
             </form>
 
 
         </div>
-        <!-- <div class="GUIDLINES">
-            <h1>GUIDLINES </h1>
-            <p>1. All Fields are mandatory</p>
-            <p>2. On clicking submit button new Python window will open. </p>
-            <p>3. Try to capture good quality images</p>
-            <p>4. Press 'q' On keyboard to quit capturing images</p>
-            <p>5. After 30-40 Sec you can close capturing or it will close automatically</p>
-
-        </div> -->
-
+        <p id="output"></p>
 
     </main>
     <footer class="footer">
@@ -111,7 +74,68 @@
         </div>
     </footer>
 
-    <script src="../static/javascript/index.js"></script>
+    <!-- <script src="javascript/addstudent.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    <script>
+        function test() {
+            var studentName = document.getElementById('studentName').value;
+            var className = document.getElementById('clas').value;
+            var div = document.getElementById('div').value;
+            var rollNo = document.getElementById('roll').value;
+
+            // var formData= document.getElementById('form')
+            // console.log(formData);
+            var myData = {
+                'studentName': studentName,
+                'className': className,
+                'div': div,
+                'rollNo': rollNo,
+            }
+            alert(JSON.stringify(myData))
+                // Turn the data object into an array of URL-encoded key/value pairs.
+            let urlEncodedData = "",
+                urlEncodedDataPairs = [],
+                name;
+            // for (name in myData) {
+            //     urlEncodedDataPairs.push(encodeURIComponent(name) + '=' + encodeURIComponent(myData[name]));
+            // }
+            urlEncodedDataPairs = encodeURIComponent(JSON.stringify(myData))
+
+            // alert(urlEncodedDataPairs)
+
+            // console.log(data);
+            // var sendString = JSON.stringify(data);
+            // alert(sendString);
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    // console.log("<%= output %>")
+                    // console.log('test data', this.responseText);
+                    // outputText = document.getElementById('output');
+                    // outputText.innerText += this.responseText;
+                }
+            };
+            xhttp.open("POST", "http://localhost:8081/addStudent", true);
+            // xhttp.send()
+            xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhttp.send(urlEncodedDataPairs);
+        }
+    </script>
+
+    <!-- <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase.js"></script> -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-app.js"></script> -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-app.js"></script> -->
+
+    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-analytics.js"></script> -->
+
+    <!-- Add Firebase products that you want to use -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-auth.js"></script> -->
+
+    <script src="javascript/template.js"></script>
 </body>
 
 </html>

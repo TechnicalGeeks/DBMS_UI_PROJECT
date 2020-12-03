@@ -6,7 +6,7 @@
     <meta name="keywords" content="HTML, CSS, JavaScript">
     <meta name="author" content="Technical Geeks">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proxy | CreateDataset</title>
+    <title>Proxy | CreateLecture</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <!--CSS File Link-->
     <link rel="stylesheet" href="../static/css/addstudent.css">
@@ -49,12 +49,19 @@
 
 
         <div class="container">
-            <form action="" id="form" name='form' class="form" onsubmit="return validateForm()" method="POST">
-                <h2>Create Lecture</h2>
+            <form action="" id="form" name='form' class="form" method="POST">
+                <h2>Search Student</h2>
+
                 <div class="form-control">
-                    <label for="lname">Enter Name</label>
-                    <input type="text" id="lname" placeholder="Enter Name">
+                    <label for="alist">Search Options</label>
+                    <select name="year" class="select">
+                        <option value="" >Select Year</option>
+                        <option value="sid" >Student ID (SID)</option>
+                        <option value="name" > Name</option>
+                        <option value="roll" >Roll Number</option>
+                      </select>
                 </div>
+
                 <div class="form-control">
                     <label for="subject">Year</label>
                     <select name="comp_select" class="select">
@@ -71,22 +78,10 @@
                         {% endfor %}
                 </select>
                 </div>
-                <div class="form-control">
-                    <label for="alist">Roll Number</label>
-                    <input type="text" id="roll" placeholder="Name">
-                </div>
                 <button type="submit">Submit</button>
             </form>
         </div>
-        <div class="GUIDLINES">
-            <h1>GUIDLINES </h1>
-            <p>1. All Fields are mandatory</p>
-            <p>2. On clicking submit button new Python window will open. </p>
-            <p>3. Try to capture good quality images</p>
-            <p>4. Press 'q' On keyboard to quit capturing images</p>
-            <p>5. After 30-40 Sec you can close capturing or it will close automatically</p>
 
-        </div>
 
 
     </main>
