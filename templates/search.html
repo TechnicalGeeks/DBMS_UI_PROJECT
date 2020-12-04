@@ -27,40 +27,20 @@
 
     </header>
     <main>
-        <!-- <form method="POST">
-            <div class="Year_SELECT">
-                <p>Year</p>
-                <select name="comp_select" class="select">
-                {% for o in data %}
-                <option value="{{ o.name }}" >{{ o.name }}</option>
-                {% endfor %}
-              </select>
-
-                <p>Division</p>
-                <select name="comp_select_div" class="select">
-                    {% for o in div %}
-                    <option value="{{ o.name }}" width="50px">{{ o.name }}</option>
-                    {% endfor %}
-            </select>
-
-            </div>
-            <button name="Camera" id="Camera" onclick="alert('Press q to Quit')"> Camera <Button></Button></button>
-        </form> -->
-
 
         <div class="container">
-            <form action="" id="form" name='form' class="form" method="POST">
+            <form action="/search" id="form" name='form' class="form" method="POST">
                 <h2>Search Student</h2>
 
                 <div class="form-control">
                     <label for="alist">Search Options</label>
-                    <select name="year" class="select" onchange='CheckOption(this.value);'>
+                    <select name="option" class="select" onchange='CheckOption(this.value);'>
                         <option value = "">Select Option</option>
                         <option value="sid" >Student ID (SID)</option>
                         <option value="name" > Name</option>
                         <option value="roll" >Roll Number</option>
                       </select>
-                    <input type="text" name="options" id="options" placeholder=" hello" style='display:none;' />
+                    <input type="text" name="options" id="options" placeholder=" hello" style='display:none;' required />
 
                 </div>
 

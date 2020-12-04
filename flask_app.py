@@ -1,6 +1,10 @@
 from flask import Flask,redirect,url_for,render_template,request
 import requests
 import json
+import sys
+from DBMS_python.search import * 
+print(sys.path)
+
 
 app=Flask(__name__)
 @app.route('/',methods=['GET','POST'])
@@ -20,9 +24,24 @@ def home():
         render_template("index.html")            
     return render_template('index.html')
 
-@app.route('/',methods=['GET','POST'])
-def update():
-     if request.method=='POST':pass
+@app.route('/search',methods=['GET','POST'])
+def search():
+     if request.method=='POST':
+        option = request.form['option']
+        year = request.form['comp_select']
+        div = request.form['comp_select_div']
+        value = request.form['options']
+        if option == 'sid':
+            return (details_student_SID(year=year,sid=value))
+
+        elif option == 'name':
+            return (details_student_name(year=year,div=div,name1=value))
+        else:
+            return (details_student_roll(year=year,div=div,roll=value))      
+
+
+
+
 
 if __name__ == '__main__':
     #DEBUG is SET to TRUE. CHANGE FOR PROD
