@@ -107,12 +107,22 @@ def defaulter():
             
         else:
             div = request.form['comp_select_div'] 
-            heading,data = displayDivisionWiseAttendance(year=year,div=div)
+            heading,data = overallDivisionWiseDefaulter(year=year,div=div)
             return render_template("table.html",headings=heading,data=data)
   
         year=[{'name':'SE'}, {'name':'TE'}, {'name':'BE'}]
         div = [{'name':'A'}, {'name':'B'}, {'name':'C'}]
         return render_template('defaulter.html',data=year,div=div)
+
+@app.route("/view",methods = ['GET','POST'] )
+def view():
+    if request.method == 'POST':
+        year = request.form['year']
+        div = request.form['div'] 
+        heading,data = displayDivisionWiseAttendance(year=year,div=div)
+        return render_template("table.html",headings=heading,data=data)
+
+
 
 if __name__ == '__main__':
     #DEBUG is SET to TRUE. CHANGE FOR PROD

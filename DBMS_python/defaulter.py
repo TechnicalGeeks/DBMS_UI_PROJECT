@@ -61,6 +61,7 @@ def overallDivisionWiseDefaulter(year,div):
     cid=cursor.fetchall()
     cid = int(cid[0][0])
     if year == 'SE':
+        headings = ["NAME","ROll","DIV","OOP","DSA","DELD","DM","COA","TOTAL ATTENDANCE"]
         cursor.execute(""" 
                     select STUDENT.name,STUDENT.roll,CLASS.div,SE.oop,SE.dsa,SE.deld,SE.dm,SE.coa,((SE.oop+SE.dsa+SE.deld+SE.dm+SE.coa))/5 AS Tot 
                     from STUDENT,SE,CLASS 
@@ -69,6 +70,7 @@ def overallDivisionWiseDefaulter(year,div):
         data = cursor.fetchall()
         # displayTables.viewTable(['Name','Roll no.','Div','OOP','DSA','DELD','DM','COA'],data)
     elif year == 'TE':
+        headings = ["NAME","ROll","DIV","CN","DBMS","TOC","ISEE","SEPM","TOTAL ATTENDANCE"]
         cursor.execute("""
                     select STUDENT.name,STUDENT.roll,CLASS.div,TE.cn,TE.dbms,TE.toc,TE.isee,TE.sepm,((TE.cn+TE.dbms+TE.toc+TE.isee+TE.sepm))/5 AS Tot 
                     from STUDENT,TE,CLASS 
@@ -77,6 +79,7 @@ def overallDivisionWiseDefaulter(year,div):
         data = cursor.fetchall()
         # displayTables.viewTable(['Name','Roll no.','Div','CN','DBMS','TOC','ISEE','SEPM'],data)
     else:
+        headings = ["NAME","ROll","DIV","AI","E1","E2","Computaion","DA","TOTAL ATTENDANCE"]
         cursor.execute("""
                     select STUDENT.name,STUDENT.roll,CLASS.div,BE.ai,BE.e1,BE.e2,BE.comp,BE.da,((BE.ai+BE.e1+BE.e2+BE.comp+BE.da))/5 AS Tot 
                     from STUDENT,BE,CLASS 
@@ -87,7 +90,7 @@ def overallDivisionWiseDefaulter(year,div):
     if data == []:
         print("\n-------- NO DATA FOUND ----------")
     else:
-        return(tuple(data))
+        return(tuple(headings),tuple(data))
 
 # Search a subject and you'll get all the defaulter list of that particlular subject
 def subjectDefaulter(year,subj):
