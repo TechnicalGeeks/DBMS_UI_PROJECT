@@ -66,18 +66,25 @@ def func():
         year1=year
         div1=div
         subject1=sub
-        if request.form['submit_button'] == 'create':
-            createAttendanceSheet(year=year,div=div,subject=sub)
-            return render_template("update.html")
-            
-        else:
-            update_attendance(year=year1,div=div1,subject=subject1)
-            return render_template("update.html")
+        createAttendanceSheet(year=year,div=div,subject=sub)
+        
+        return render_template("update2.html",year=year,subject=sub,division=div)
 
         return redirect("index.html")
-
-
     return render_template("update.html")
+
+
+@app.route("/update2",methods = ['GET','POST'] )
+def update2():
+    if request.method == 'POST':
+        year1 = request.form['year']
+        div1 = request.form['d']
+        subject1 = request.form['subject']
+        update_attendance(year=year1,div=div1,subject=subject1)
+        return render_template("index.html")
+
+
+
 
 @app.route("/add",methods = ['GET','POST'] )
 def add():

@@ -1,6 +1,6 @@
 function CheckOption(val) {
     var element = document.getElementById('options')
-    var divsion = document.getElementById('division')
+    var divsion = document.getElementById('division2')
 
     if (val == 'subject') {
         element.style.display = 'block';
