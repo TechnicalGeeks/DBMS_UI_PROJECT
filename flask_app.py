@@ -31,8 +31,12 @@ def search():
         year = request.form['comp_select']
         div = request.form['comp_select_div']
         value = request.form['options']
+
         if option == 'sid':
-            return (details_student_SID(year=year,sid=value))
+            print("Inside if")
+            headings,data = details_student_SID(year=year,sid=value)
+            print(data,type(data))
+            return render_template("table.html",headings=headings,data=data)
 
         elif option == 'name':
             return (details_student_name(year=year,div=div,name1=value))

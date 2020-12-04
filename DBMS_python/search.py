@@ -8,7 +8,7 @@ def details_student_SID(year,sid):
     year =year.upper()
     print("Connection established Successfully ....  ")
 
-    sub = [["OOP","DSA","DELD","DM","COA"],["CN","DBMS","TOC","ISEE","SEPM"],["AI","E1","E2","Computaion","DA"]]
+    sub = [["CID","SID","OOP","DSA","DELD","DM","COA"],["CN","DBMS","TOC","ISEE","SEPM"],["AI","E1","E2","Computaion","DA"]]
     # division = input("Enter Division (A/B/C) : ")
 
     cursor.execute(""" 
@@ -23,21 +23,20 @@ def details_student_SID(year,sid):
         print("\n______  Sorry !! No DATA FOUND _____\n")
         return "SORRY NON DATA FOUND"
     else :
-        print(data)
+        print(type(data))
         
-        return search_display(data)
+        return tuple(sub[0]),tuple(data)
 
 
 
 
 def search_display(data):
-    string = ""
-    for row in data:
-        for values in row:
-            string += str(values) +"\t"
-        string+="\n"
+    tup = ()
+    tup = tuple(data)
 
-    return string       
+    print(tup)
+    print(type(tup))
+    return tup       
     
 
 
@@ -117,3 +116,4 @@ def search_menu():
             print("Invalid Choice Try again !!")    
 
 
+# details_student_SID("SE",2)
