@@ -8,7 +8,15 @@ def details_student_SID(year,sid):
     year =year.upper()
     print("Connection established Successfully ....  ")
 
-    sub = [["CID","SID","OOP","DSA","DELD","DM","COA"],["CN","DBMS","TOC","ISEE","SEPM"],["AI","E1","E2","Computaion","DA"]]
+    sub = [["OOP","DSA","DELD","DM","COA"],["CN","DBMS","TOC","ISEE","SEPM"],["AI","E1","E2","Computaion","DA"]]
+
+    if year == "SE":
+        sub = ["CID","SID","OOP","DSA","DELD","DM","COA","SID","-- NAME --","Roll", "CID"]
+    elif year=="TE":
+        sub = ["CID","SID","CN","DBMS","TOC","ISEE","SEPM","SID","-- NAME --","Roll", "CID"]
+    else:
+        sub = ["CID","SID","AI","E1","E2","Computaion","DA","SID","-- NAME --","Roll", "CID"]
+
     # division = input("Enter Division (A/B/C) : ")
 
     cursor.execute(""" 
@@ -20,12 +28,11 @@ def details_student_SID(year,sid):
     data = cursor.fetchall()
     conn.close()
     if data == [] :
-        print("\n______  Sorry !! No DATA FOUND _____\n")
-        return "SORRY NON DATA FOUND"
-    else :
-        print(type(data))
+        return ("\n______  Sorry !! No DATA FOUND _____\n")
         
-        return tuple(sub[0]),tuple(data)
+    else :
+        print(data)
+        return tuple(sub),tuple(data)
 
 
 
@@ -45,7 +52,17 @@ def details_student_name(year,div,name1):
         cursor = conn.cursor()
         name1= '%'+name1+'%'
         print(type(year),div,name1)
-        
+        sub = [["OOP","DSA","DELD","DM","COA"],["CN","DBMS","TOC","ISEE","SEPM"],["AI","E1","E2","Computaion","DA"]]
+
+        if year == "SE":
+            sub = ["CID","SID","OOP","DSA","DELD","DM","COA","SID","-- NAME --","Roll", "CID"]
+        elif year=="TE":
+            sub = ["CID","SID","CN","DBMS","TOC","ISEE","SEPM","SID","-- NAME --","Roll", "CID"]
+        else:
+            sub = ["CID","SID","AI","E1","E2","Computaion","DA","SID","-- NAME --","Roll", "CID"]
+
+
+
         flag = cursor.execute(""" 
                     SELECT * from {year} 
                     INNER JOIN StudenT
@@ -59,12 +76,22 @@ def details_student_name(year,div,name1):
         else :
             print(data)
             
-            return search_display(data)
+            return tuple(sub),tuple(data)
 
 
 def details_student_roll(year,div,roll):
         conn =sqlite3.connect("Attendance.db")
         cursor = conn.cursor()
+
+        sub = [["OOP","DSA","DELD","DM","COA"],["CN","DBMS","TOC","ISEE","SEPM"],["AI","E1","E2","Computaion","DA"]]
+
+        if year == "SE":
+            sub = ["CID","SID","OOP","DSA","DELD","DM","COA","SID","-- NAME --","Roll", "CID"]
+        elif year=="TE":
+            sub = ["CID","SID","CN","DBMS","TOC","ISEE","SEPM","SID","-- NAME --","Roll", "CID"]
+        else:
+            sub = ["CID","SID","AI","E1","E2","Computaion","DA","SID","-- NAME --","Roll", "CID"]   
+
         flag = cursor.execute(""" 
                     SELECT * from {year} 
                     INNER JOIN StudenT
@@ -78,7 +105,7 @@ def details_student_roll(year,div,roll):
         else :
             print(data)
             
-            return search_display(data)
+            return tuple(sub),tuple(data)
 
 
 
@@ -117,3 +144,4 @@ def search_menu():
 
 
 # details_student_SID("SE",2)
+# details_student_name("SE","A","g")

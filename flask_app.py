@@ -3,9 +3,9 @@ import requests
 import json
 import sys
 from DBMS_python.search import * 
-print(sys.path)
-
-
+from DBMS_python.update import *
+from DBMS_python.insert1 import *
+from DBMS_python.defaulter import *
 app=Flask(__name__)
 @app.route('/',methods=['GET','POST'])
 def home():
@@ -19,6 +19,12 @@ def home():
             return render_template("search.html",data=year,div=div)
         elif request.form['submit_button']=="update":
             return render_template("update.html")
+        elif request.form['submit_button'] == "defaulter":
+            year=[{'name':'SE'}, {'name':'TE'}, {'name':'BE'}]
+            div = [{'name':'A'}, {'name':'B'}, {'name':'C'}]
+            return render_template('defaulter.html',data=year,div=div)
+        elif request.form['submit_button']=="view":
+            return render_template('viewAtt.html')    
 
                 
         render_template("index.html")            
@@ -36,16 +42,77 @@ def search():
             print("Inside if")
             headings,data = details_student_SID(year=year,sid=value)
             print(data,type(data))
-            return render_template("table.html",headings=headings,data=data)
+            return  render_template("table.html",headings=headings,data=data)
 
         elif option == 'name':
-            return (details_student_name(year=year,div=div,name1=value))
+            headings,data = details_student_name(year=year,div=div,name1=value)
+            return render_template("table.html",headings=headings,data=data)
         else:
-            return (details_student_roll(year=year,div=div,roll=value))      
+            headings,data = details_student_roll(year=year,div=div,roll=value)
+            return render_template("table.html",headings=headings,data=data)      
+        
+       
+
+
+year1 = ""
+div1 = ""
+subject1 = ""
+@app.route("/update",methods = ['GET','POST'] )
+def func():
+    if request.method=='POST':
+        year = request.form['year']
+        div = request.form['div']
+        sub = request.form['subject'].upper()
+        year1=year
+        div1=div
+        subject1=sub
+        if request.form['submit_button'] == 'create':
+            createAttendanceSheet(year=year,div=div,subject=sub)
+            return render_template("update.html")
+            
+        else:
+            update_attendance(year=year1,div=div1,subject=subject1)
+            return render_template("update.html")
+
+        return redirect("index.html")
+
+
+    return render_template("update.html")
+
+@app.route("/add",methods = ['GET','POST'] )
+def add():
+    if request.method == 'POST':
+        name = request.form['name'].upper()
+        year = request.form['year'].upper()
+        div = request.form['div'].upper()
+        roll = request.form['roll']
+
+        insert_complete(name=name,roll=roll,year=year,div=div)
+        return render_template("index.html")
+    
 
 
 
 
+@app.route("/defaulter",methods = ['GET','POST'] )
+def defaulter():
+    if request.method == 'POST':
+        option = request.form['option']
+        year = request.form['comp_select']
+
+        if option == 'subject':
+            sub = request.form['options']
+            heading,data = subjectDefaulter(year=year,subj=sub)
+            return render_template("table.html",headings=heading,data=data)
+            
+        else:
+            div = request.form['comp_select_div'] 
+            heading,data = displayDivisionWiseAttendance(year=year,div=div)
+            return render_template("table.html",headings=heading,data=data)
+  
+        year=[{'name':'SE'}, {'name':'TE'}, {'name':'BE'}]
+        div = [{'name':'A'}, {'name':'B'}, {'name':'C'}]
+        return render_template('defaulter.html',data=year,div=div)
 
 if __name__ == '__main__':
     #DEBUG is SET to TRUE. CHANGE FOR PROD

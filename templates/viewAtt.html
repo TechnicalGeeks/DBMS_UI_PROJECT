@@ -17,21 +17,8 @@
     <!-- Awesome Fonts Link to StyleSheet -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 </head>
-<script>
-    function myFunction() {
-        alert(" Exel File will is Created Update attendance and then press OK ");
-    }
-
-    function myFunction2() {
-        alert(" Press ok to update Attendance");
-    }
-</script>
-
-
 
 <body>
-
-
     <header>
         <a href="template.html" class="Institution_logo">
             <img src="../static/images/logo.jpg" alt="PCCoE" class="logo">
@@ -43,11 +30,11 @@
 
 
         <div class="container">
-            <form id="form" name='form' class="form" method="POST" action="/update">
-                <h2>Mark Attendance</h2>
+            <form action="/view" id="form" name='form' class="form" method="POST">
+                <h2>View Attendance</h2>
                 <div class="form-control">
                     <label for="year">Year</label>
-                    <select name="year" class="select" required>
+                    <select name="year" class="select">
                         <option value="" >Select Year</option>
                         <option value="SE" >SE</option>
                         <option value="TE" >TE</option>
@@ -56,22 +43,14 @@
                 </div>
                 <div class="form-control">
                     <label for="div">Division</label>
-                    <select name="div" class="select" required>
+                    <select name="div" class="select">
                         <option value="" >Select Division</option>
                         <option value="A" >A</option>
                         <option value="B" >B</option>
                         <option value="C" >C</option>
                       </select>
                 </div>
-
-                <div class="form-control">
-                    <label for="subject">Subject</label>
-                    <input type="text" name="subject" placeholder="Enter Subject">
-                </div>
-
-
-                <button type="submit" name="submit_button" value="create" onclick="myFunction()">Create Sheet</button>
-                <button type="submit" name="submit_button" value="update" onclick="myFunction2()">Update Attendance</button>
+                <button type="submit">View</button>
             </form>
         </div>
 

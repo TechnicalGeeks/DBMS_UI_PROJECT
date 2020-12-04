@@ -20,6 +20,11 @@
 </head>
 
 <body>
+    <script>
+        function myfun() {
+            alert("Student Added SuccessFully !! ")
+        }
+    </script>
     <header>
         <a href="template.html" class="Institution_logo">
             <img src="../static/images/logo.jpg" alt="PCCoE" class="logo">
@@ -30,7 +35,7 @@
     <main>
 
         <div class="container">
-            <form id="form" class="form">
+            <form id="form" class="form" action="/add" method="POST">
                 <h2>Add Students</h2>
                 <div class="form-control">
                     <label for="name">Name : </label>
@@ -39,7 +44,7 @@
                 <br><br>
                 <div class="form-control">
                     <label for="clas">Class : </label>
-                    <input type="text" id="clas" name="clas" value="TE" placeholder="Enter Class">
+                    <input type="text" id="year" name="year" value="TE" placeholder="Enter Class">
                 </div>
                 <br><br>
                 <div class="form-control">
@@ -52,7 +57,7 @@
                     <input type="text" id="roll" name="roll" value="1" placeholder="Enter Name">
                 </div>
                 <br><br>
-                <button onclick="test()">Add</button>
+                <input type="submit" value="Add student" onclick="myfun()">
                 <!-- <button type="submit">Add</button> -->
             </form>
 

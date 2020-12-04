@@ -1,10 +1,10 @@
 import sqlite3
 import csv
 import os
-import displayTables as d
-conn=sqlite3.connect("Attendance.db")
-cursor=conn.cursor()
+
 def update_count(div,subject):
+    conn=sqlite3.connect("Attendance.db")
+    cursor=conn.cursor()
     # Return lecture count 
     cursor.execute(f'select {div} from lec_count where subject=?',(subject,))
     count=int(cursor.fetchone()[0])
@@ -15,6 +15,8 @@ def update_count(div,subject):
     return count+1
 
 def createAttendanceSheet(year,div,subject):
+    conn=sqlite3.connect("Attendance.db")
+    cursor=conn.cursor()
     cursor.execute('select cid from class where year=? and div=?',(year,div))
     classID=int(cursor.fetchone()[0])
     # print(classID)
@@ -26,10 +28,14 @@ def createAttendanceSheet(year,div,subject):
         for row in list:
             write.writerow(row)
     print("*****  Mark Attendance and Save CSV file as 1.csv *****")
+    conn.close()
+
     os.system('start  Temparary.csv')
 
 
 def update_attendance(year,div,subject):
+    conn=sqlite3.connect("Attendance.db")
+    cursor=conn.cursor()
     cursor.execute('select cid from class where year=? and div=?',(year,div))
     classID=int(cursor.fetchone()[0])
     # print(classID)
@@ -42,7 +48,7 @@ def update_attendance(year,div,subject):
     list=cursor.fetchall()
     for rows in list:
         attendance[rows[0]]=int(rows[1])
-    with open('Temparary.csv','r') as file:
+    with open('../Temparary.csv','r') as file:
         read=csv.reader(file)
         i=0
         for row in read:
@@ -60,8 +66,7 @@ def update_attendance(year,div,subject):
     print("Updated Attendance Sucessfully ...") 
     cursor.execute(f'select student.roll,student.name, {subject} from {year},student where {year}.cid={classID} and {year}.sid=student.sid')
     data=cursor.fetchall()
-    d.viewTable(['Roll No.','Name',subject],data)
-
+    conn.close()
     os.system('del Temparary.csv')   
     conn.commit()
 
@@ -71,26 +76,26 @@ def inputs():
     subject=input("Enter Subject :").upper()
     return [year,div,subject]
 
-def update_menu():
-    ch=-1
-    year,div,subject=inputs()
+# def update_menu():
+#     ch=-1
+#     year,div,subject=inputs()
     
-    while ch!=0:
-        print("******\tUpdate Menu\t*******")
-        print(" 1. Create Attendance Sheet\n 2. Update Attendance \n 3. Change Year/Div/Subject \n 0. Exit")
-        ch=input("Enter Your Choice : ")
-        try:
-            if ch=='1': createAttendanceSheet(year,div,subject)
-            elif ch=='2': update_attendance(year,div,subject)
-            elif ch=='3': year,div,subject=inputs()
-            elif ch=='0': 
-                conn.commit()
-                conn.close()
-                return
-            else: print("Invalid Choice. Try Again.")
-        except Exception as e:
-            print("___ Something Went Wrong ___")
-            print(" Exception :",e)
+#     while ch!=0:
+#         print("******\tUpdate Menu\t*******")
+#         print(" 1. Create Attendance Sheet\n 2. Update Attendance \n 3. Change Year/Div/Subject \n 0. Exit")
+#         ch=input("Enter Your Choice : ")
+#         try:
+#             if ch=='1': createAttendanceSheet(year,div,subject)
+#             elif ch=='2': update_attendance(year,div,subject)
+#             elif ch=='3': year,div,subject=inputs()
+#             elif ch=='0': 
+#                 conn.commit()
+#                 conn.close()
+#                 return
+#             else: print("Invalid Choice. Try Again.")
+#         except Exception as e:
+#             print("___ Something Went Wrong ___")
+#             print(" Exception :",e)
 
 # update_count('A','DSA')
 # update_attendance('SE','B','DSA')
