@@ -3,15 +3,16 @@ import csv
 import os
 
 def update_count(div,subject):
+    # Return lecture count 
     conn=sqlite3.connect("Attendance.db")
     cursor=conn.cursor()
-    # Return lecture count 
     cursor.execute(f'select {div} from lec_count where subject=?',(subject,))
     count=int(cursor.fetchone()[0])
     print("count=",count)
     cursor.execute(f'update lec_count set {div}={count+1} where subject=?',(subject,))
     print("Lecture Count Successfully Updated")
     conn.commit()
+    conn.close()
     return count+1
 
 def createAttendanceSheet(year,div,subject):
@@ -26,23 +27,21 @@ def createAttendanceSheet(year,div,subject):
         write=csv.writer(file,lineterminator="\n")
         write.writerow(['StudentID','Name','P/A'])
         for row in list:
+            row+=("P",)
             write.writerow(row)
     print("*****  Mark Attendance and Save CSV file as 1.csv *****")
-    conn.close()
-
     os.system('start  Temparary.csv')
 
 
 def update_attendance(year,div,subject):
+    count=update_count(div,subject)
     conn=sqlite3.connect("Attendance.db")
-    print("INSIDE UPDATE ATTENDNACE")
     cursor=conn.cursor()
     cursor.execute('select cid from class where year=? and div=?',(year,div))
     classID=int(cursor.fetchone()[0])
     # print(classID)
     cursor.execute(f'select sid,name from student where cid={classID};')
     attendance=dict()
-    count=update_count(div,subject)
     if count==1: preCount=1
     else: preCount=count-1
     cursor.execute(f'select sid, {subject} from {year} where cid={classID}')
@@ -55,7 +54,7 @@ def update_attendance(year,div,subject):
         for row in read:
             if i==0: i=1
             else:
-                print(row)
+                # print(row)
                 if row[2]=='P'or row[2]=='p': att=100
                 else: att=0
                 sid=int(row[0])
@@ -67,9 +66,9 @@ def update_attendance(year,div,subject):
     print("Updated Attendance Sucessfully ...") 
     cursor.execute(f'select student.roll,student.name, {subject} from {year},student where {year}.cid={classID} and {year}.sid=student.sid')
     data=cursor.fetchall()
+
     os.system('del Temparary.csv')   
     conn.commit()
-    conn.close()
 
 def inputs():
     year=input("Enter Year :").upper()
@@ -78,6 +77,8 @@ def inputs():
     return [year,div,subject]
 
 def update_menu():
+    conn=sqlite3.connect("Attendance.db")
+    cursor=conn.cursor()
     ch=-1
     year,div,subject=inputs()
     
@@ -100,4 +101,4 @@ def update_menu():
 
 # update_count('A','DSA')
 # update_attendance('SE','B','DSA')
-update_menu()
+# update_menu()

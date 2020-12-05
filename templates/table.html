@@ -2,6 +2,7 @@
 <html>
 
 <head>
+
     <head>
         <meta charset="UTF-8">
         <meta name="keywords" content="HTML, CSS, JavaScript">
@@ -9,27 +10,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Tables</title>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-        <!--CSS File Link-->
+        <!-- CSS File Link -->
         <link rel="stylesheet" href="../static/css/addstudent.css">
         <link rel="stylesheet" href="../static/css/lecture.css">
-        <link rel="stylesheet" href="../static/css/Mainindex.css">
-    
-    
+        <link rel="stylesheet" href="../static/css/studentsTable.css">
+
+
+
         <!-- Awesome Fonts Link to StyleSheet -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-        <style>
-            table {
-              font-family: arial, sans-serif;
-              border-collapse: collapse;
-              width: 100%;
-            }
-            
-            td, th {
-              border: 1px solid #dddddd;
-              text-align: left;
-              padding: 8px;
-            }
-            </style>
+
     </head>
 </head>
 
@@ -43,23 +33,23 @@
     </header>
     <table>
         <div class="container">
-        <tr>
-            {% for header in headings %}
-            <th>
-                {{header}}
-            </th>
+            <tr>
+                {% for header in headings %}
+                <th>
+                    {{header}}
+                </th>
+                {% endfor %}
+            </tr>
+            {% for row in data %}
+            <tr>
+                {% for cell in row %}
+                <td>
+                    {{cell}}
+                </td>
+                {% endfor %}
+            </tr>
             {% endfor %}
-        </tr>
-        {% for row in data %}
-        <tr>
-            {% for cell in row %}
-            <td>
-                {{cell}}
-            </td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
-    </div>
+        </div>
     </table>
     <footer class="footer">
         <div class="copyright">
