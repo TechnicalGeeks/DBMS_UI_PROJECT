@@ -40,7 +40,7 @@ def update_attendance(year,div,subject):
     cursor.execute('select cid from class where year=? and div=?',(year,div))
     classID=int(cursor.fetchone()[0])
     # print(classID)
-    cursor.execute(f'select sid,name from student where cid={classID};')
+    # cursor.execute(f'select sid,name from student where cid={classID};')
     attendance=dict()
     if count==1: preCount=1
     else: preCount=count-1
@@ -58,8 +58,8 @@ def update_attendance(year,div,subject):
                 if row[2]=='P'or row[2]=='p': att=100
                 else: att=0
                 sid=int(row[0])
-                attendance[sid]=(attendance[sid]*preCount+att)/count
-    # print(attendance)   
+                print(sid)
+                attendance[sid]=(attendance[sid]*preCount+att)/count    # print(attendance)   
     for id in attendance.keys():
         # print(int(attendance[id]))
         cursor.execute(f'update {year} set {subject}={attendance[id]} where cid={classID} and sid={id}  ')      
