@@ -58,7 +58,7 @@ def update_attendance(year,div,subject):
                 if row[2]=='P'or row[2]=='p': att=100
                 else: att=0
                 sid=int(row[0])
-                attendance[sid]=(attendance[sid]+att)*preCount/count
+                attendance[sid]=(attendance[sid]*preCount+att)/count
     # print(attendance)   
     for id in attendance.keys():
         # print(int(attendance[id]))
